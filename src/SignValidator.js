@@ -10,7 +10,7 @@
 //   5. Debug overlay with per-joint error coloring
 //
 
-import refSignsData from "./ref_signs.json";
+import refSignsData from "../ref_signs.json";
 
 // ── LANDMARK INDICES ──
 const LM = {

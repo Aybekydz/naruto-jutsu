@@ -382,21 +382,25 @@ export default function NinjutsuArena() {
     const res = classifyStrict(lm, strict);
     const errSet = new Set(res?.debug?.match?.errJoints || []);
 
-    // Draw skeleton with color coding
+    // 1. DESSIN DU SQUELETTE
     for (const [a,b] of CONNS) {
       const aE = errSet.has(a), bE = errSet.has(b);
       ctx.beginPath();
-      ctx.moveTo(lm[a].x*640, lm[a].y*480);
-      ctx.lineTo(lm[b].x*640, lm[b].y*480);
+      // MODIFICATION ICI : On fait (1 - x) pour inverser horizontalement
+      ctx.moveTo((1 - lm[a].x) * 640, lm[a].y * 480); 
+      ctx.lineTo((1 - lm[b].x) * 640, lm[b].y * 480);
       ctx.strokeStyle = (aE||bE) ? "#ff2020" : res?.sign ? "#20ff60" : "#ffa500";
       ctx.lineWidth = (aE||bE) ? 3 : 2;
       if (aE||bE) { ctx.setLineDash([4,3]); } else { ctx.setLineDash([]); }
       ctx.stroke(); ctx.setLineDash([]);
     }
 
-    // Draw joints
+    // 2. DESSIN DES POINTS (JOINTS)
     for (let i = 0; i < 21; i++) {
-      const p = lm[i], x = p.x*640, y = p.y*480;
+      const p = lm[i];
+      // MODIFICATION ICI : (1 - p.x)
+      const x = (1 - p.x) * 640; 
+      const y = p.y * 480;
       const isErr = errSet.has(i);
       ctx.beginPath(); ctx.arc(x, y, isErr ? 6 : 3.5, 0, Math.PI*2);
       if (isErr) {
@@ -408,8 +412,10 @@ export default function NinjutsuArena() {
       }
     }
 
-    // Bounding box
-    const xs = lm.map(l=>l.x*640), ys = lm.map(l=>l.y*480);
+    // 3. CALCUL DE LA BOUNDING BOX (RECTANGLE)
+    // MODIFICATION ICI : On inverse tous les X pour trouver les min/max
+    const xs = lm.map(l => (1 - l.x) * 640); 
+    const ys = lm.map(l => l.y * 480);
     const bx=Math.min(...xs)-18, by=Math.min(...ys)-35, bw=Math.max(...xs)-bx+18, bh=Math.max(...ys)-(by+35)+18;
     ctx.strokeStyle = res?.sign ? "#20ff60" : "#ffa500";
     ctx.lineWidth = 2; ctx.strokeRect(bx, by, bw, bh);
@@ -569,7 +575,7 @@ export default function NinjutsuArena() {
         <div style={{flex:1,display:"flex",overflow:"hidden"}}>
           <div style={{flex:1,position:"relative",background:"#000"}}>
             <video ref={videoRef} style={{width:"100%",height:"100%",objectFit:"cover",transform:"scaleX(-1)"}} autoPlay playsInline muted/>
-            <canvas ref={canvasRef} style={{position:"absolute",top:0,left:0,width:"100%",height:"100%",objectFit:"cover",transform:"scaleX(-1)"}}/>
+            <canvas ref={canvasRef} style={{position:"absolute",top:0,left:0,width:"100%",height:"100%",objectFit:"cover"}}/>
             {detected && <div style={{position:"absolute",top:12,left:"50%",transform:"translateX(-50%)",background:"#000c",padding:"0.5rem 1.2rem",borderRadius:6,border:"1px solid #20ff6060",zIndex:10,textAlign:"center"}}>
               <div style={{fontSize:"1.4rem",fontWeight:900,color:"#20ff60"}}>{SIGN_DEFS[detected.sign]?.jp} {SIGN_DEFS[detected.sign]?.fr}</div>
               <div style={{fontSize:"0.65rem",color:"#20ff60",opacity:0.7}}>Confiance: {(detected.confidence*100).toFixed(0)}%{strict?" [STRICT]":""}</div>
