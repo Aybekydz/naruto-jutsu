@@ -1,16 +1,23 @@
 {
-  "name": "ninjutsu-server",
+  "name": "ninjutsu-arena",
+  "private": true,
   "version": "1.0.0",
-  "description": "Serveur Naruto Arena",
-  "main": "server.production.js",
+  "type": "module",
   "scripts": {
+    "dev": "vite",
+    "build": "vite build",
     "start": "node server.production.js"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "socket.io": "^4.7.2"
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "three": "^0.150.0"
   },
-  "engines": {
-    "node": ">=18.0.0"
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
+    "vite": "^4.3.0"
   }
 }
