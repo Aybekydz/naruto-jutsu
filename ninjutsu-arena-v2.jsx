@@ -1,3 +1,5 @@
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 import { useState, useEffect, useRef, useCallback } from "react";
 
 // ════════════════════════════════════════════════════════════════
@@ -695,4 +697,12 @@ export default function NinjutsuArena() {
   }
 
   return <div style={bg}><div style={{padding:"3rem",textAlign:"center",opacity:0.3}}>Chargement...</div></div>;
+}
+const rootElement = document.getElementById('root');
+if (rootElement) {
+  ReactDOM.createRoot(rootElement).render(
+    <React.StrictMode>
+      <NinjutsuArena />
+    </React.StrictMode>,
+  )
 }
