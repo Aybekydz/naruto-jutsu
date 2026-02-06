@@ -1,0 +1,568 @@
+{
+  "_meta": {
+    "version": "2.0.0",
+    "description": "Normalized reference landmarks for 12 Naruto hand signs (Jūni Shi). Coordinates are relative to palm center with scale normalization against palm_size (distance wrist→middle_mcp). Z-axis represents depth relative to palm plane.",
+    "coordinate_system": "MediaPipe: x=right, y=down, z=toward_camera. All values normalized to [-1, 1] range relative to palm center.",
+    "landmark_indices": {
+      "0": "WRIST",
+      "1": "THUMB_CMC", "2": "THUMB_MCP", "3": "THUMB_IP", "4": "THUMB_TIP",
+      "5": "INDEX_MCP", "6": "INDEX_PIP", "7": "INDEX_DIP", "8": "INDEX_TIP",
+      "9": "MIDDLE_MCP", "10": "MIDDLE_PIP", "11": "MIDDLE_DIP", "12": "MIDDLE_TIP",
+      "13": "RING_MCP", "14": "RING_PIP", "15": "RING_DIP", "16": "RING_TIP",
+      "17": "PINKY_MCP", "18": "PINKY_PIP", "19": "PINKY_DIP", "20": "PINKY_TIP"
+    }
+  },
+
+  "signs": {
+    "tiger": {
+      "name_jp": "寅 (Tora)",
+      "name_fr": "Tigre",
+      "description": "Index et majeur étendus vers le haut et joints. Annulaire et auriculaire repliés dans la paume. Pouces croisés par-dessus.",
+      "finger_states": {
+        "thumb":  { "state": "crossed",  "weight": 0.6 },
+        "index":  { "state": "extended", "weight": 1.0 },
+        "middle": { "state": "extended", "weight": 1.0 },
+        "ring":   { "state": "curled",   "weight": 0.9 },
+        "pinky":  { "state": "curled",   "weight": 0.9 }
+      },
+      "constraints": [
+        { "type": "distance", "landmarks": [8, 12], "relation": "less_than", "threshold": 0.12, "label": "Index et majeur doivent se toucher", "weight": 1.0 },
+        { "type": "extension", "finger": "index", "relation": "extended", "label": "Index doit être tendu", "weight": 1.0 },
+        { "type": "extension", "finger": "middle", "relation": "extended", "label": "Majeur doit être tendu", "weight": 1.0 },
+        { "type": "extension", "finger": "ring", "relation": "curled", "label": "Annulaire doit être replié", "weight": 0.9 },
+        { "type": "extension", "finger": "pinky", "relation": "curled", "label": "Auriculaire doit être replié", "weight": 0.9 }
+      ],
+      "angle_vectors": {
+        "index_direction": { "x": 0.0, "y": -1.0, "tolerance_deg": 30 },
+        "middle_direction": { "x": 0.0, "y": -1.0, "tolerance_deg": 30 },
+        "index_middle_spread_deg": 8,
+        "index_middle_spread_tolerance": 15
+      },
+      "reference_landmarks": [
+        {"x": 0.00, "y": 0.50, "z": 0.00},
+        {"x":-0.30, "y": 0.35, "z":-0.05},
+        {"x":-0.35, "y": 0.15, "z":-0.08},
+        {"x":-0.25, "y":-0.05, "z":-0.06},
+        {"x":-0.15, "y":-0.15, "z":-0.04},
+        {"x":-0.15, "y": 0.00, "z": 0.00},
+        {"x":-0.12, "y":-0.30, "z": 0.00},
+        {"x":-0.08, "y":-0.55, "z": 0.00},
+        {"x":-0.05, "y":-0.75, "z": 0.00},
+        {"x": 0.00, "y": 0.00, "z": 0.00},
+        {"x": 0.03, "y":-0.30, "z": 0.00},
+        {"x": 0.05, "y":-0.55, "z": 0.00},
+        {"x": 0.07, "y":-0.75, "z": 0.00},
+        {"x": 0.15, "y": 0.02, "z": 0.00},
+        {"x": 0.18, "y": 0.15, "z": 0.05},
+        {"x": 0.15, "y": 0.25, "z": 0.08},
+        {"x": 0.12, "y": 0.18, "z": 0.06},
+        {"x": 0.28, "y": 0.08, "z": 0.00},
+        {"x": 0.30, "y": 0.20, "z": 0.05},
+        {"x": 0.28, "y": 0.28, "z": 0.08},
+        {"x": 0.25, "y": 0.22, "z": 0.06}
+      ],
+      "min_confidence": 0.65,
+      "strict_threshold": 0.75
+    },
+
+    "snake": {
+      "name_jp": "巳 (Mi)",
+      "name_fr": "Serpent",
+      "description": "Mains jointes, doigts entrelacés. Tous les doigts étendus et serrés ensemble.",
+      "finger_states": {
+        "thumb":  { "state": "pressed",  "weight": 0.7 },
+        "index":  { "state": "extended", "weight": 1.0 },
+        "middle": { "state": "extended", "weight": 1.0 },
+        "ring":   { "state": "extended", "weight": 1.0 },
+        "pinky":  { "state": "extended", "weight": 1.0 }
+      },
+      "constraints": [
+        { "type": "extension", "finger": "index", "relation": "extended", "label": "Index doit être tendu", "weight": 1.0 },
+        { "type": "extension", "finger": "middle", "relation": "extended", "label": "Majeur doit être tendu", "weight": 1.0 },
+        { "type": "extension", "finger": "ring", "relation": "extended", "label": "Annulaire doit être tendu", "weight": 1.0 },
+        { "type": "extension", "finger": "pinky", "relation": "extended", "label": "Auriculaire doit être tendu", "weight": 1.0 },
+        { "type": "distance", "landmarks": [8, 12], "relation": "less_than", "threshold": 0.15, "label": "Doigts doivent être serrés", "weight": 0.8 },
+        { "type": "distance", "landmarks": [12, 16], "relation": "less_than", "threshold": 0.15, "label": "Majeur et annulaire serrés", "weight": 0.8 },
+        { "type": "distance", "landmarks": [16, 20], "relation": "less_than", "threshold": 0.15, "label": "Annulaire et auriculaire serrés", "weight": 0.8 }
+      ],
+      "angle_vectors": {
+        "index_direction": { "x": 0.0, "y": -1.0, "tolerance_deg": 35 },
+        "finger_spread_max_deg": 12
+      },
+      "reference_landmarks": [
+        {"x": 0.00, "y": 0.50, "z": 0.00},
+        {"x":-0.28, "y": 0.35, "z":-0.05},
+        {"x":-0.32, "y": 0.18, "z":-0.06},
+        {"x":-0.20, "y": 0.05, "z":-0.04},
+        {"x":-0.10, "y": 0.00, "z":-0.02},
+        {"x":-0.12, "y": 0.00, "z": 0.00},
+        {"x":-0.10, "y":-0.28, "z": 0.00},
+        {"x":-0.08, "y":-0.50, "z": 0.00},
+        {"x":-0.06, "y":-0.68, "z": 0.00},
+        {"x": 0.00, "y": 0.00, "z": 0.00},
+        {"x": 0.02, "y":-0.28, "z": 0.00},
+        {"x": 0.03, "y":-0.50, "z": 0.00},
+        {"x": 0.04, "y":-0.68, "z": 0.00},
+        {"x": 0.12, "y": 0.02, "z": 0.00},
+        {"x": 0.13, "y":-0.25, "z": 0.00},
+        {"x": 0.14, "y":-0.45, "z": 0.00},
+        {"x": 0.14, "y":-0.62, "z": 0.00},
+        {"x": 0.24, "y": 0.06, "z": 0.00},
+        {"x": 0.25, "y":-0.18, "z": 0.00},
+        {"x": 0.25, "y":-0.35, "z": 0.00},
+        {"x": 0.25, "y":-0.50, "z": 0.00}
+      ],
+      "min_confidence": 0.60,
+      "strict_threshold": 0.72
+    },
+
+    "ram": {
+      "name_jp": "未 (Hitsuji)",
+      "name_fr": "Bélier",
+      "description": "Poing fermé. Tous les doigts repliés dans la paume, pouce par-dessus.",
+      "finger_states": {
+        "thumb":  { "state": "over_fist", "weight": 0.5 },
+        "index":  { "state": "curled",    "weight": 1.0 },
+        "middle": { "state": "curled",    "weight": 1.0 },
+        "ring":   { "state": "curled",    "weight": 1.0 },
+        "pinky":  { "state": "curled",    "weight": 1.0 }
+      },
+      "constraints": [
+        { "type": "extension", "finger": "index", "relation": "curled", "label": "Index doit être replié", "weight": 1.0 },
+        { "type": "extension", "finger": "middle", "relation": "curled", "label": "Majeur doit être replié", "weight": 1.0 },
+        { "type": "extension", "finger": "ring", "relation": "curled", "label": "Annulaire doit être replié", "weight": 1.0 },
+        { "type": "extension", "finger": "pinky", "relation": "curled", "label": "Auriculaire doit être replié", "weight": 1.0 },
+        { "type": "curl_depth", "finger": "index", "min_ratio": 0.6, "label": "Index pas assez replié", "weight": 0.8 },
+        { "type": "curl_depth", "finger": "middle", "min_ratio": 0.6, "label": "Majeur pas assez replié", "weight": 0.8 }
+      ],
+      "reference_landmarks": [
+        {"x": 0.00, "y": 0.50, "z": 0.00},
+        {"x":-0.28, "y": 0.35, "z":-0.05},
+        {"x":-0.30, "y": 0.15, "z":-0.06},
+        {"x":-0.18, "y": 0.00, "z":-0.04},
+        {"x":-0.05, "y": 0.05, "z":-0.02},
+        {"x":-0.12, "y": 0.00, "z": 0.00},
+        {"x":-0.15, "y":-0.12, "z": 0.04},
+        {"x":-0.10, "y": 0.00, "z": 0.08},
+        {"x":-0.05, "y": 0.10, "z": 0.06},
+        {"x": 0.00, "y": 0.00, "z": 0.00},
+        {"x": 0.00, "y":-0.10, "z": 0.04},
+        {"x": 0.02, "y": 0.02, "z": 0.08},
+        {"x": 0.04, "y": 0.12, "z": 0.06},
+        {"x": 0.12, "y": 0.02, "z": 0.00},
+        {"x": 0.14, "y":-0.06, "z": 0.04},
+        {"x": 0.12, "y": 0.05, "z": 0.08},
+        {"x": 0.10, "y": 0.14, "z": 0.06},
+        {"x": 0.24, "y": 0.08, "z": 0.00},
+        {"x": 0.24, "y": 0.00, "z": 0.04},
+        {"x": 0.22, "y": 0.08, "z": 0.06},
+        {"x": 0.20, "y": 0.14, "z": 0.04}
+      ],
+      "min_confidence": 0.62,
+      "strict_threshold": 0.74
+    },
+
+    "ox": {
+      "name_jp": "丑 (Ushi)",
+      "name_fr": "Bœuf",
+      "description": "Index tendu vers le haut. Tous les autres doigts repliés en poing.",
+      "finger_states": {
+        "thumb":  { "state": "curled",   "weight": 0.5 },
+        "index":  { "state": "extended", "weight": 1.0 },
+        "middle": { "state": "curled",   "weight": 1.0 },
+        "ring":   { "state": "curled",   "weight": 1.0 },
+        "pinky":  { "state": "curled",   "weight": 1.0 }
+      },
+      "constraints": [
+        { "type": "extension", "finger": "index", "relation": "extended", "label": "Index doit être tendu", "weight": 1.0 },
+        { "type": "extension", "finger": "middle", "relation": "curled", "label": "Majeur doit être replié", "weight": 1.0 },
+        { "type": "extension", "finger": "ring", "relation": "curled", "label": "Annulaire doit être replié", "weight": 0.9 },
+        { "type": "extension", "finger": "pinky", "relation": "curled", "label": "Auriculaire doit être replié", "weight": 0.9 },
+        { "type": "isolation", "finger": "index", "min_gap": 0.15, "label": "Index doit être isolé des autres doigts", "weight": 0.7 }
+      ],
+      "reference_landmarks": [
+        {"x": 0.00, "y": 0.50, "z": 0.00},
+        {"x":-0.28, "y": 0.35, "z":-0.05},
+        {"x":-0.30, "y": 0.15, "z":-0.06},
+        {"x":-0.20, "y": 0.05, "z":-0.04},
+        {"x":-0.10, "y": 0.08, "z":-0.02},
+        {"x":-0.12, "y": 0.00, "z": 0.00},
+        {"x":-0.10, "y":-0.28, "z": 0.00},
+        {"x":-0.08, "y":-0.52, "z": 0.00},
+        {"x":-0.06, "y":-0.72, "z": 0.00},
+        {"x": 0.00, "y": 0.00, "z": 0.00},
+        {"x": 0.02, "y":-0.08, "z": 0.04},
+        {"x": 0.04, "y": 0.04, "z": 0.08},
+        {"x": 0.05, "y": 0.14, "z": 0.06},
+        {"x": 0.12, "y": 0.02, "z": 0.00},
+        {"x": 0.14, "y":-0.04, "z": 0.04},
+        {"x": 0.13, "y": 0.06, "z": 0.08},
+        {"x": 0.11, "y": 0.14, "z": 0.06},
+        {"x": 0.24, "y": 0.08, "z": 0.00},
+        {"x": 0.24, "y": 0.02, "z": 0.04},
+        {"x": 0.22, "y": 0.10, "z": 0.06},
+        {"x": 0.20, "y": 0.16, "z": 0.04}
+      ],
+      "min_confidence": 0.65,
+      "strict_threshold": 0.76
+    },
+
+    "hare": {
+      "name_jp": "卯 (U)",
+      "name_fr": "Lièvre",
+      "description": "Auriculaire étendu vers le haut. Tous les autres doigts repliés.",
+      "finger_states": {
+        "thumb":  { "state": "curled",   "weight": 0.5 },
+        "index":  { "state": "curled",   "weight": 1.0 },
+        "middle": { "state": "curled",   "weight": 1.0 },
+        "ring":   { "state": "curled",   "weight": 1.0 },
+        "pinky":  { "state": "extended", "weight": 1.0 }
+      },
+      "constraints": [
+        { "type": "extension", "finger": "pinky", "relation": "extended", "label": "Auriculaire doit être tendu", "weight": 1.0 },
+        { "type": "extension", "finger": "index", "relation": "curled", "label": "Index doit être replié", "weight": 1.0 },
+        { "type": "extension", "finger": "middle", "relation": "curled", "label": "Majeur doit être replié", "weight": 1.0 },
+        { "type": "extension", "finger": "ring", "relation": "curled", "label": "Annulaire doit être replié", "weight": 0.9 }
+      ],
+      "reference_landmarks": [
+        {"x": 0.00, "y": 0.50, "z": 0.00},
+        {"x":-0.28, "y": 0.35, "z":-0.05},
+        {"x":-0.30, "y": 0.15, "z":-0.06},
+        {"x":-0.20, "y": 0.05, "z":-0.04},
+        {"x":-0.10, "y": 0.08, "z":-0.02},
+        {"x":-0.12, "y": 0.00, "z": 0.00},
+        {"x":-0.15, "y":-0.10, "z": 0.04},
+        {"x":-0.10, "y": 0.02, "z": 0.08},
+        {"x":-0.06, "y": 0.12, "z": 0.06},
+        {"x": 0.00, "y": 0.00, "z": 0.00},
+        {"x": 0.02, "y":-0.08, "z": 0.04},
+        {"x": 0.04, "y": 0.04, "z": 0.08},
+        {"x": 0.05, "y": 0.14, "z": 0.06},
+        {"x": 0.12, "y": 0.02, "z": 0.00},
+        {"x": 0.14, "y":-0.04, "z": 0.04},
+        {"x": 0.13, "y": 0.06, "z": 0.08},
+        {"x": 0.11, "y": 0.14, "z": 0.06},
+        {"x": 0.24, "y": 0.08, "z": 0.00},
+        {"x": 0.25, "y":-0.15, "z": 0.00},
+        {"x": 0.25, "y":-0.32, "z": 0.00},
+        {"x": 0.25, "y":-0.48, "z": 0.00}
+      ],
+      "min_confidence": 0.65,
+      "strict_threshold": 0.76
+    },
+
+    "monkey": {
+      "name_jp": "申 (Saru)",
+      "name_fr": "Singe",
+      "description": "Pouce appuyé contre le majeur. Index étendu. Annulaire et auriculaire repliés.",
+      "finger_states": {
+        "thumb":  { "state": "pressing_middle", "weight": 0.9 },
+        "index":  { "state": "extended",        "weight": 1.0 },
+        "middle": { "state": "half_curled",     "weight": 0.8 },
+        "ring":   { "state": "curled",          "weight": 0.8 },
+        "pinky":  { "state": "curled",          "weight": 0.8 }
+      },
+      "constraints": [
+        { "type": "extension", "finger": "index", "relation": "extended", "label": "Index doit être tendu", "weight": 1.0 },
+        { "type": "distance", "landmarks": [4, 12], "relation": "less_than", "threshold": 0.12, "label": "Pouce doit toucher le majeur", "weight": 1.0 },
+        { "type": "extension", "finger": "ring", "relation": "curled", "label": "Annulaire doit être replié", "weight": 0.8 },
+        { "type": "extension", "finger": "pinky", "relation": "curled", "label": "Auriculaire doit être replié", "weight": 0.8 }
+      ],
+      "reference_landmarks": [
+        {"x": 0.00, "y": 0.50, "z": 0.00},
+        {"x":-0.28, "y": 0.35, "z":-0.05},
+        {"x":-0.32, "y": 0.15, "z":-0.06},
+        {"x":-0.22, "y":-0.02, "z":-0.04},
+        {"x":-0.08, "y":-0.10, "z":-0.02},
+        {"x":-0.12, "y": 0.00, "z": 0.00},
+        {"x":-0.10, "y":-0.28, "z": 0.00},
+        {"x":-0.08, "y":-0.50, "z": 0.00},
+        {"x":-0.06, "y":-0.68, "z": 0.00},
+        {"x": 0.00, "y": 0.00, "z": 0.00},
+        {"x": 0.02, "y":-0.15, "z": 0.02},
+        {"x": 0.03, "y":-0.08, "z": 0.06},
+        {"x": 0.02, "y":-0.02, "z": 0.04},
+        {"x": 0.12, "y": 0.02, "z": 0.00},
+        {"x": 0.14, "y":-0.04, "z": 0.04},
+        {"x": 0.13, "y": 0.06, "z": 0.08},
+        {"x": 0.11, "y": 0.14, "z": 0.06},
+        {"x": 0.24, "y": 0.08, "z": 0.00},
+        {"x": 0.24, "y": 0.02, "z": 0.04},
+        {"x": 0.22, "y": 0.10, "z": 0.06},
+        {"x": 0.20, "y": 0.16, "z": 0.04}
+      ],
+      "min_confidence": 0.60,
+      "strict_threshold": 0.72
+    },
+
+    "boar": {
+      "name_jp": "亥 (I)",
+      "name_fr": "Sanglier",
+      "description": "Main ouverte, tous les doigts écartés au maximum. Paume vers l'avant.",
+      "finger_states": {
+        "thumb":  { "state": "extended", "weight": 0.7 },
+        "index":  { "state": "extended", "weight": 1.0 },
+        "middle": { "state": "extended", "weight": 1.0 },
+        "ring":   { "state": "extended", "weight": 1.0 },
+        "pinky":  { "state": "extended", "weight": 1.0 }
+      },
+      "constraints": [
+        { "type": "extension", "finger": "index", "relation": "extended", "label": "Index doit être tendu", "weight": 1.0 },
+        { "type": "extension", "finger": "middle", "relation": "extended", "label": "Majeur doit être tendu", "weight": 1.0 },
+        { "type": "extension", "finger": "ring", "relation": "extended", "label": "Annulaire doit être tendu", "weight": 1.0 },
+        { "type": "extension", "finger": "pinky", "relation": "extended", "label": "Auriculaire doit être tendu", "weight": 1.0 },
+        { "type": "distance", "landmarks": [8, 12], "relation": "greater_than", "threshold": 0.18, "label": "Doigts doivent être écartés", "weight": 0.9 },
+        { "type": "distance", "landmarks": [12, 16], "relation": "greater_than", "threshold": 0.15, "label": "Majeur et annulaire écartés", "weight": 0.8 },
+        { "type": "distance", "landmarks": [16, 20], "relation": "greater_than", "threshold": 0.15, "label": "Annulaire et auriculaire écartés", "weight": 0.8 }
+      ],
+      "reference_landmarks": [
+        {"x": 0.00, "y": 0.50, "z": 0.00},
+        {"x":-0.35, "y": 0.32, "z":-0.05},
+        {"x":-0.42, "y": 0.12, "z":-0.06},
+        {"x":-0.45, "y":-0.08, "z":-0.04},
+        {"x":-0.48, "y":-0.22, "z":-0.02},
+        {"x":-0.15, "y": 0.00, "z": 0.00},
+        {"x":-0.18, "y":-0.28, "z": 0.00},
+        {"x":-0.18, "y":-0.52, "z": 0.00},
+        {"x":-0.18, "y":-0.72, "z": 0.00},
+        {"x": 0.00, "y": 0.00, "z": 0.00},
+        {"x": 0.00, "y":-0.30, "z": 0.00},
+        {"x": 0.00, "y":-0.55, "z": 0.00},
+        {"x": 0.00, "y":-0.75, "z": 0.00},
+        {"x": 0.15, "y": 0.02, "z": 0.00},
+        {"x": 0.18, "y":-0.25, "z": 0.00},
+        {"x": 0.18, "y":-0.48, "z": 0.00},
+        {"x": 0.18, "y":-0.66, "z": 0.00},
+        {"x": 0.28, "y": 0.08, "z": 0.00},
+        {"x": 0.32, "y":-0.15, "z": 0.00},
+        {"x": 0.34, "y":-0.35, "z": 0.00},
+        {"x": 0.36, "y":-0.52, "z": 0.00}
+      ],
+      "min_confidence": 0.58,
+      "strict_threshold": 0.70
+    },
+
+    "horse": {
+      "name_jp": "午 (Uma)",
+      "name_fr": "Cheval",
+      "description": "Index des deux mains pointés vers le haut et joints en triangle. Autres doigts entrelacés.",
+      "finger_states": {
+        "thumb":  { "state": "pressed",  "weight": 0.5 },
+        "index":  { "state": "extended", "weight": 1.0 },
+        "middle": { "state": "extended", "weight": 0.8 },
+        "ring":   { "state": "curled",   "weight": 0.7 },
+        "pinky":  { "state": "curled",   "weight": 0.7 }
+      },
+      "constraints": [
+        { "type": "extension", "finger": "index", "relation": "extended", "label": "Index doit être tendu", "weight": 1.0 },
+        { "type": "extension", "finger": "middle", "relation": "extended", "label": "Majeur doit être tendu", "weight": 0.8 },
+        { "type": "distance", "landmarks": [8, 12], "relation": "less_than", "threshold": 0.10, "label": "Index et majeur doivent être très proches", "weight": 0.9 },
+        { "type": "extension", "finger": "ring", "relation": "curled", "label": "Annulaire doit être replié", "weight": 0.7 },
+        { "type": "extension", "finger": "pinky", "relation": "curled", "label": "Auriculaire doit être replié", "weight": 0.7 }
+      ],
+      "reference_landmarks": [
+        {"x": 0.00, "y": 0.50, "z": 0.00},
+        {"x":-0.28, "y": 0.35, "z":-0.05},
+        {"x":-0.30, "y": 0.18, "z":-0.06},
+        {"x":-0.18, "y": 0.08, "z":-0.04},
+        {"x":-0.08, "y": 0.02, "z":-0.02},
+        {"x":-0.12, "y": 0.00, "z": 0.00},
+        {"x":-0.08, "y":-0.28, "z": 0.00},
+        {"x":-0.04, "y":-0.52, "z": 0.00},
+        {"x":-0.02, "y":-0.72, "z": 0.00},
+        {"x": 0.00, "y": 0.00, "z": 0.00},
+        {"x": 0.04, "y":-0.28, "z": 0.00},
+        {"x": 0.06, "y":-0.50, "z": 0.00},
+        {"x": 0.04, "y":-0.70, "z": 0.00},
+        {"x": 0.12, "y": 0.02, "z": 0.00},
+        {"x": 0.15, "y":-0.05, "z": 0.04},
+        {"x": 0.13, "y": 0.06, "z": 0.08},
+        {"x": 0.11, "y": 0.14, "z": 0.06},
+        {"x": 0.24, "y": 0.08, "z": 0.00},
+        {"x": 0.24, "y": 0.02, "z": 0.04},
+        {"x": 0.22, "y": 0.10, "z": 0.06},
+        {"x": 0.20, "y": 0.16, "z": 0.04}
+      ],
+      "min_confidence": 0.58,
+      "strict_threshold": 0.72
+    },
+
+    "dog": {
+      "name_jp": "戌 (Inu)",
+      "name_fr": "Chien",
+      "description": "Pouce levé vers le haut. Tous les autres doigts repliés en poing serré.",
+      "finger_states": {
+        "thumb":  { "state": "extended_up", "weight": 1.0 },
+        "index":  { "state": "curled",      "weight": 1.0 },
+        "middle": { "state": "curled",      "weight": 1.0 },
+        "ring":   { "state": "curled",      "weight": 1.0 },
+        "pinky":  { "state": "curled",      "weight": 1.0 }
+      },
+      "constraints": [
+        { "type": "thumb_up", "label": "Pouce doit être levé", "weight": 1.0 },
+        { "type": "extension", "finger": "index", "relation": "curled", "label": "Index doit être replié", "weight": 1.0 },
+        { "type": "extension", "finger": "middle", "relation": "curled", "label": "Majeur doit être replié", "weight": 1.0 },
+        { "type": "extension", "finger": "ring", "relation": "curled", "label": "Annulaire doit être replié", "weight": 0.9 },
+        { "type": "extension", "finger": "pinky", "relation": "curled", "label": "Auriculaire doit être replié", "weight": 0.9 }
+      ],
+      "reference_landmarks": [
+        {"x": 0.00, "y": 0.50, "z": 0.00},
+        {"x":-0.28, "y": 0.32, "z":-0.05},
+        {"x":-0.32, "y": 0.12, "z":-0.06},
+        {"x":-0.30, "y":-0.08, "z":-0.04},
+        {"x":-0.28, "y":-0.25, "z":-0.02},
+        {"x":-0.12, "y": 0.00, "z": 0.00},
+        {"x":-0.15, "y":-0.10, "z": 0.04},
+        {"x":-0.10, "y": 0.02, "z": 0.08},
+        {"x":-0.06, "y": 0.12, "z": 0.06},
+        {"x": 0.00, "y": 0.00, "z": 0.00},
+        {"x": 0.02, "y":-0.08, "z": 0.04},
+        {"x": 0.04, "y": 0.04, "z": 0.08},
+        {"x": 0.05, "y": 0.14, "z": 0.06},
+        {"x": 0.12, "y": 0.02, "z": 0.00},
+        {"x": 0.14, "y":-0.04, "z": 0.04},
+        {"x": 0.13, "y": 0.06, "z": 0.08},
+        {"x": 0.11, "y": 0.14, "z": 0.06},
+        {"x": 0.24, "y": 0.08, "z": 0.00},
+        {"x": 0.24, "y": 0.02, "z": 0.04},
+        {"x": 0.22, "y": 0.10, "z": 0.06},
+        {"x": 0.20, "y": 0.16, "z": 0.04}
+      ],
+      "min_confidence": 0.65,
+      "strict_threshold": 0.76
+    },
+
+    "dragon": {
+      "name_jp": "辰 (Tatsu)",
+      "name_fr": "Dragon",
+      "description": "Index, majeur et annulaire étendus. Auriculaire replié. Pouce sur le côté.",
+      "finger_states": {
+        "thumb":  { "state": "side",     "weight": 0.5 },
+        "index":  { "state": "extended", "weight": 1.0 },
+        "middle": { "state": "extended", "weight": 1.0 },
+        "ring":   { "state": "extended", "weight": 1.0 },
+        "pinky":  { "state": "curled",   "weight": 1.0 }
+      },
+      "constraints": [
+        { "type": "extension", "finger": "index", "relation": "extended", "label": "Index doit être tendu", "weight": 1.0 },
+        { "type": "extension", "finger": "middle", "relation": "extended", "label": "Majeur doit être tendu", "weight": 1.0 },
+        { "type": "extension", "finger": "ring", "relation": "extended", "label": "Annulaire doit être tendu", "weight": 1.0 },
+        { "type": "extension", "finger": "pinky", "relation": "curled", "label": "Auriculaire doit être replié", "weight": 1.0 }
+      ],
+      "reference_landmarks": [
+        {"x": 0.00, "y": 0.50, "z": 0.00},
+        {"x":-0.30, "y": 0.35, "z":-0.05},
+        {"x":-0.35, "y": 0.15, "z":-0.06},
+        {"x":-0.28, "y": 0.00, "z":-0.04},
+        {"x":-0.22, "y": 0.05, "z":-0.02},
+        {"x":-0.14, "y": 0.00, "z": 0.00},
+        {"x":-0.12, "y":-0.28, "z": 0.00},
+        {"x":-0.10, "y":-0.52, "z": 0.00},
+        {"x":-0.08, "y":-0.72, "z": 0.00},
+        {"x": 0.00, "y": 0.00, "z": 0.00},
+        {"x": 0.02, "y":-0.28, "z": 0.00},
+        {"x": 0.04, "y":-0.52, "z": 0.00},
+        {"x": 0.05, "y":-0.72, "z": 0.00},
+        {"x": 0.14, "y": 0.02, "z": 0.00},
+        {"x": 0.16, "y":-0.25, "z": 0.00},
+        {"x": 0.17, "y":-0.48, "z": 0.00},
+        {"x": 0.17, "y":-0.65, "z": 0.00},
+        {"x": 0.26, "y": 0.08, "z": 0.00},
+        {"x": 0.26, "y": 0.02, "z": 0.04},
+        {"x": 0.24, "y": 0.10, "z": 0.06},
+        {"x": 0.22, "y": 0.16, "z": 0.04}
+      ],
+      "min_confidence": 0.58,
+      "strict_threshold": 0.70
+    },
+
+    "rat": {
+      "name_jp": "子 (Ne)",
+      "name_fr": "Rat",
+      "description": "Index et majeur étendus et légèrement écartés (V). Annulaire et auriculaire repliés.",
+      "finger_states": {
+        "thumb":  { "state": "side",     "weight": 0.5 },
+        "index":  { "state": "extended", "weight": 1.0 },
+        "middle": { "state": "extended", "weight": 1.0 },
+        "ring":   { "state": "curled",   "weight": 0.9 },
+        "pinky":  { "state": "curled",   "weight": 0.9 }
+      },
+      "constraints": [
+        { "type": "extension", "finger": "index", "relation": "extended", "label": "Index doit être tendu", "weight": 1.0 },
+        { "type": "extension", "finger": "middle", "relation": "extended", "label": "Majeur doit être tendu", "weight": 1.0 },
+        { "type": "extension", "finger": "ring", "relation": "curled", "label": "Annulaire doit être replié", "weight": 0.9 },
+        { "type": "extension", "finger": "pinky", "relation": "curled", "label": "Auriculaire doit être replié", "weight": 0.9 },
+        { "type": "distance", "landmarks": [8, 12], "relation": "range", "min": 0.15, "max": 0.35, "label": "Index et majeur légèrement écartés (V)", "weight": 0.8 }
+      ],
+      "reference_landmarks": [
+        {"x": 0.00, "y": 0.50, "z": 0.00},
+        {"x":-0.28, "y": 0.35, "z":-0.05},
+        {"x":-0.30, "y": 0.15, "z":-0.06},
+        {"x":-0.20, "y": 0.05, "z":-0.04},
+        {"x":-0.15, "y": 0.10, "z":-0.02},
+        {"x":-0.14, "y": 0.00, "z": 0.00},
+        {"x":-0.16, "y":-0.28, "z": 0.00},
+        {"x":-0.16, "y":-0.52, "z": 0.00},
+        {"x":-0.15, "y":-0.72, "z": 0.00},
+        {"x": 0.00, "y": 0.00, "z": 0.00},
+        {"x": 0.06, "y":-0.28, "z": 0.00},
+        {"x": 0.10, "y":-0.52, "z": 0.00},
+        {"x": 0.12, "y":-0.72, "z": 0.00},
+        {"x": 0.14, "y": 0.02, "z": 0.00},
+        {"x": 0.16, "y":-0.04, "z": 0.04},
+        {"x": 0.14, "y": 0.06, "z": 0.08},
+        {"x": 0.12, "y": 0.14, "z": 0.06},
+        {"x": 0.26, "y": 0.08, "z": 0.00},
+        {"x": 0.26, "y": 0.02, "z": 0.04},
+        {"x": 0.24, "y": 0.10, "z": 0.06},
+        {"x": 0.22, "y": 0.16, "z": 0.04}
+      ],
+      "min_confidence": 0.58,
+      "strict_threshold": 0.72
+    },
+
+    "bird": {
+      "name_jp": "酉 (Tori)",
+      "name_fr": "Oiseau",
+      "description": "Pouce et index se touchent (pince). Majeur, annulaire et auriculaire étendus vers le haut.",
+      "finger_states": {
+        "thumb":  { "state": "pinch_index", "weight": 1.0 },
+        "index":  { "state": "pinch_thumb", "weight": 1.0 },
+        "middle": { "state": "extended",    "weight": 1.0 },
+        "ring":   { "state": "extended",    "weight": 0.8 },
+        "pinky":  { "state": "extended",    "weight": 0.8 }
+      },
+      "constraints": [
+        { "type": "distance", "landmarks": [4, 8], "relation": "less_than", "threshold": 0.10, "label": "Pouce et index doivent se toucher", "weight": 1.0 },
+        { "type": "extension", "finger": "middle", "relation": "extended", "label": "Majeur doit être tendu", "weight": 1.0 },
+        { "type": "extension", "finger": "ring", "relation": "extended", "label": "Annulaire doit être tendu", "weight": 0.8 },
+        { "type": "extension", "finger": "pinky", "relation": "extended", "label": "Auriculaire doit être tendu", "weight": 0.8 }
+      ],
+      "reference_landmarks": [
+        {"x": 0.00, "y": 0.50, "z": 0.00},
+        {"x":-0.28, "y": 0.35, "z":-0.05},
+        {"x":-0.32, "y": 0.15, "z":-0.06},
+        {"x":-0.22, "y":-0.02, "z":-0.04},
+        {"x":-0.12, "y":-0.12, "z":-0.02},
+        {"x":-0.12, "y": 0.00, "z": 0.00},
+        {"x":-0.14, "y":-0.15, "z": 0.02},
+        {"x":-0.13, "y":-0.10, "z": 0.04},
+        {"x":-0.12, "y":-0.08, "z": 0.02},
+        {"x": 0.00, "y": 0.00, "z": 0.00},
+        {"x": 0.02, "y":-0.28, "z": 0.00},
+        {"x": 0.04, "y":-0.52, "z": 0.00},
+        {"x": 0.05, "y":-0.72, "z": 0.00},
+        {"x": 0.14, "y": 0.02, "z": 0.00},
+        {"x": 0.16, "y":-0.25, "z": 0.00},
+        {"x": 0.17, "y":-0.48, "z": 0.00},
+        {"x": 0.17, "y":-0.65, "z": 0.00},
+        {"x": 0.26, "y": 0.08, "z": 0.00},
+        {"x": 0.28, "y":-0.12, "z": 0.00},
+        {"x": 0.28, "y":-0.30, "z": 0.00},
+        {"x": 0.28, "y":-0.46, "z": 0.00}
+      ],
+      "min_confidence": 0.60,
+      "strict_threshold": 0.72
+    }
+  }
+}
